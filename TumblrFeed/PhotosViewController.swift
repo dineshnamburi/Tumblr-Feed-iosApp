@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import AFNetworking
 
 class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var posts : [NSDictionary] = []
     @IBOutlet weak var picsTableView: UITableView!
+    @IBOutlet weak var PhotoCell: UITableView!
+    
     override func viewDidLoad() {
+        picsTableView.rowHeight = 240;
         super.viewDidLoad()
         picsTableView.dataSource = self
         picsTableView.delegate = self
@@ -31,14 +35,10 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
                 if let data = data {
                     if let responseDictionary = try! JSONSerialization.jsonObject(
                         with: data, options:[]) as? NSDictionary {
-                        //print("responseDictionary: \(responseDictionary)")
-                        
-                        // Recall there are two fields in the response dictionary, 'meta' and 'response'.
-                        // This is how we get the 'response' field
+                   
                         let responseFieldDictionary = responseDictionary["response"] as! NSDictionary
                         
-                        // This is where you will store the returned array of posts in your posts property
-                        // self.feeds = responseFieldDictionary["posts"] as! [NSDictionary]
+                      
                         self.posts = responseFieldDictionary["posts"] as! [NSDictionary]
                         //print("responseDictionary: \(self.posts)")
                         self.picsTableView.reloadData()
@@ -60,8 +60,24 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
             return self.posts.count
     }
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-        let cell = picsTableView.dequeueReusableCell(withIdentifier: "PhotoCell", for: indexPath)
-        cell.textLabel?.text = "\(self.posts[indexPath.row]["short_url"])"
+        let cell = picsTableView.dequeueReusableCell(withIdentifier: "PhotoCell") as! PhotoCell
+        
+        
+        
+        let post = self.posts[indexPath.row]
+        if let photos = post.value(forKeyPath: "photos") as? [NSDictionary]{
+            let imageUrlString = photos[0].value(forKeyPath: "original_size.url") as? String
+            let imageUrl = URL(string: imageUrlString!)!
+            cell.tumblrImage.setImageWith(imageUrl)
+        }
+        else{
+        
+        }
+        //cell.titleLabel = self.posts[indexPath.row]["summary"] as! String
+        let url1 = self.posts[indexPath.row]["short_url"] as! String
+        //cell.imageView1.setImageWith(NSURL(string: url1)! as URL)
+        print ("\(url1)")
+        cell.textlabel.text = url1
         return cell
     }
     /*
