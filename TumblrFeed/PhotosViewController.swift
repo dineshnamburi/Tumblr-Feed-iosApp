@@ -50,6 +50,33 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        // Get the index path from the cell that was tapped
+        let indexPath = picsTableView.indexPathForSelectedRow
+        // Get the Row of the Index Path and set as index
+        let index = indexPath?.row
+        // Get in touch with the DetailViewController
+        let detailViewController = segue.destination as! DetailViewController
+        // Pass on the data to the Detail ViewController by setting it's indexPathRow value
+         let post1 = self.posts[(indexPath?.row)!]
+        if let photos = post1.value(forKeyPath: "photos") as? [NSDictionary]{
+            let imageUrlString = photos[0].value(forKeyPath: "original_size.url") as? String
+            let imageUrl = URL(string: imageUrlString!)!
+         
+        }
+        else{
+            
+        }
+        //cell.titleLabel = self.posts[indexPath.row]["summary"] as! String
+        let url1 = self.posts[(indexPath?.row)!]["short_url"] as! String
+
+        
+        
+        
+        detailViewController.index = url1
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
