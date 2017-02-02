@@ -1,4 +1,4 @@
-//
+////
 //  PhotosViewController.swift
 //  TumblrFeed
 //
@@ -104,7 +104,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         let url1 = self.posts[indexPath.row]["short_url"] as! String
         //cell.imageView1.setImageWith(NSURL(string: url1)! as URL)
         print ("\(url1)")
-        cell.textlabel.text = url1
+        //cell.textlabel.text = url1
         return cell
     }
     /*
