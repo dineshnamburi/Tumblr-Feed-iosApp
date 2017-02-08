@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Photos View Controller-->
+        <!--Tumblr-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="PhotosViewController" customModule="TumblrFeed" customModuleProvider="target" sceneMemberID="viewController">
@@ -26,7 +26,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="105"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="13a-jL-BVG" id="SrA-F6-8Wy">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="104"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="105"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="Sle-5L-y5V">
@@ -52,7 +52,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="I7X-tL-pix"/>
+                    <navigationItem key="navigationItem" title="Tumblr" id="I7X-tL-pix"/>
                     <connections>
                         <outlet property="PhotoCell" destination="fNc-Xt-Fr2" id="sFe-wf-EGS"/>
                         <outlet property="picsTableView" destination="fNc-Xt-Fr2" id="uMC-Hp-B38"/>
@@ -70,7 +70,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="NfY-Ir-VW0">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="mQk-Ek-HjO">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -79,7 +79,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="fMl-WM-U9C"/>
                     <connections>
-                        <outlet property="detailImage" destination="NfY-Ir-VW0" id="g85-eT-MRP"/>
+                        <outlet property="detailImage" destination="mQk-Ek-HjO" id="syP-ka-9Mx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Rj-6q-bO4" userLabel="First Responder" sceneMemberID="firstResponder"/>

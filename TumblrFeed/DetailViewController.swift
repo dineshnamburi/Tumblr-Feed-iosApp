@@ -11,17 +11,22 @@ import AFNetworking
 
 class DetailViewController: UIViewController {
 
+
+    
     @IBOutlet weak var detailImage: UIImageView!
-    @IBOutlet weak var detailLabel: UILabel!
+
+
     var index: String!
+    var posts: NSDictionary!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-       // detailLabel.text = ("adsaf \(index)")
-        // Do any additional setup after loading the view.
-        let imageUrl = URL(string: index!)!
-        detailImage.setImageWith((imageUrl))
+        if let photos = posts.value(forKeyPath: "photos") as? [NSDictionary]{
+            let imageUrlString = photos[0].value(forKeyPath: "original_size.url") as? String
+            let imageUrl = URL(string: imageUrlString!)!
+            detailImage.setImageWith(imageUrl)
+        }
+
     }
 
     override func didReceiveMemoryWarning() {

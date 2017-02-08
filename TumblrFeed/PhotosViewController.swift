@@ -50,31 +50,10 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        // Get the index path from the cell that was tapped
-        let indexPath = picsTableView.indexPathForSelectedRow
-        // Get the Row of the Index Path and set as index
-        let index = indexPath?.row
-        // Get in touch with the DetailViewController
-        let detailViewController = segue.destination as! DetailViewController
-        // Pass on the data to the Detail ViewController by setting it's indexPathRow value
-         let post1 = self.posts[(indexPath?.row)!]
-        if let photos = post1.value(forKeyPath: "photos") as? [NSDictionary]{
-            let imageUrlString = photos[0].value(forKeyPath: "original_size.url") as? String
-            let imageUrl = URL(string: imageUrlString!)!
-         
-        }
-        else{
-            
-        }
-        //cell.titleLabel = self.posts[indexPath.row]["summary"] as! String
-        let url1 = self.posts[(indexPath?.row)!]["short_url"] as! String
 
-        
-        
-        
-        detailViewController.index = url1
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        print("first sucsss")
+        picsTableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func didReceiveMemoryWarning() {
@@ -83,7 +62,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        print ("\(self.posts.count)")
+        //print ("\(self.posts.count)")
             return self.posts.count
     }
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
@@ -97,24 +76,24 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
             let imageUrl = URL(string: imageUrlString!)!
             cell.tumblrImage.setImageWith(imageUrl)
         }
-        else{
-        
-        }
-        //cell.titleLabel = self.posts[indexPath.row]["summary"] as! String
-        let url1 = self.posts[indexPath.row]["short_url"] as! String
-        //cell.imageView1.setImageWith(NSURL(string: url1)! as URL)
-        print ("\(url1)")
-        //cell.textlabel.text = url1
+
         return cell
     }
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        let cell = sender as! UITableViewCell
+        let indexPath = picsTableView.indexPath(for: cell)
+        let post = self.posts[(indexPath?.row)!]
+        let detalViewController = segue.destination as! DetailViewController
+        detalViewController.posts = post
+        
+        
     }
-    */
+    
 
 }
