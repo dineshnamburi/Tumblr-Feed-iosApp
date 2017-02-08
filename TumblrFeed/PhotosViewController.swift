@@ -15,6 +15,12 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var PhotoCell: UITableView!
     
     override func viewDidLoad() {
+        let refreshControl = UIRefreshControl()
+        
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+        
+        picsTableView.insertSubview(refreshControl, at: 0)
+        
         picsTableView.rowHeight = 240;
         super.viewDidLoad()
         picsTableView.dataSource = self
@@ -51,6 +57,38 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
 
+    func refreshControlAction(_ refreshControl: UIRefreshControl) {
+        
+        let url = URL(string:"https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV")
+        let request = URLRequest(url: url!)
+        let session = URLSession(
+            configuration: URLSessionConfiguration.default,
+            delegate:nil,
+            delegateQueue:OperationQueue.main
+        )
+        
+        let task : URLSessionDataTask = session.dataTask(
+            with: request as URLRequest,
+            completionHandler: { (data, response, error) in
+                if let data = data {
+                    if let responseDictionary = try! JSONSerialization.jsonObject(
+                        with: data, options:[]) as? NSDictionary {
+                        
+                        let responseFieldDictionary = responseDictionary["response"] as! NSDictionary
+                        
+                        
+                        self.posts = responseFieldDictionary["posts"] as! [NSDictionary]
+                        //print("responseDictionary: \(self.posts)")
+                        self.picsTableView.reloadData()
+                         refreshControl.endRefreshing()
+                    }
+                }
+        });
+        task.resume()
+        
+    }
+    
+    
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         print("first sucsss")
         picsTableView.deselectRow(at: indexPath, animated: true)
