@@ -18,6 +18,11 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     var postOffSet = 21
     var loadingMoreView: InfiniteScrollActivityView?
     var isMoreDataLoading = false
+    
+    //Section Headers
+    let CellIdentifier = "TableViewCell", HeaderViewIdentifier = "TableViewHeaderView"
+    
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView){
         if (!isMoreDataLoading) {
             let scrollViewHeight = picsTableView.contentSize.height
@@ -87,6 +92,8 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         picsTableView.contentInset = insets
         
         
+        picsTableView.register(UITableViewCell.self, forCellReuseIdentifier: CellIdentifier)
+        picsTableView.register(UITableViewHeaderFooterView.self, forCellReuseIdentifier: HeaderViewIdentifier)
         
         picsTableView.insertSubview(refreshControl, at: 0)
         picsTableView.rowHeight = 240;
